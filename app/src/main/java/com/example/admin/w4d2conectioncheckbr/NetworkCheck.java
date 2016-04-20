@@ -23,6 +23,20 @@ public class NetworkCheck extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive: " + intent.getAction());
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
+        if (activeNetwork != null) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+//                Picasso.with(this).load("http://i.imgur.com/DvpvklR.png").into(mImageView);
+                Log.d(TAG, "checkInternet: " + "Connected to WIFI");
+            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+//                Picasso.with(this).load("http://i.imgur.com/DvpvklR.png").into(mImageView);
+                Log.d(TAG, "checkInternet: " + "Connected to Mobile data");
+            }
+        } else {
+//            Picasso.with(this).load("http://i.imgur.com/DvpvklR.png").into(mImageView);
+            Log.d(TAG, "checkInternet: " + "Not connected");
+        }
     }
 }
